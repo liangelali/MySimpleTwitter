@@ -4,29 +4,64 @@
     android:layout_margin="5dp"
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/tvTimeStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8 h ago "
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:layout_alignBaseline="@+id/tvHandle"
+        android:layout_alignBottom="@+id/tvHandle"
+        android:layout_toEndOf="@+id/tvHandle" />
+
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        app:srcCompat="@android:color/black"
         android:layout_alignParentTop="true"
-        app:srcCompat="@android:color/black" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_alignParentTop="true"
+        android:paddingRight="5dp"
+        android:text="Twitter Name"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/ivProfileImage"
         android:layout_alignStart="@+id/tvBody" />
 
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivProfileImage"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/tvUsername"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:text="TextView" />
+        android:paddingBottom="15dp"
+        android:text="The actual body of the tweet goes here" />
+
+    <TextView
+        android:id="@+id/tvHandle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="5dp"
+        android:text="\@handle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:layout_alignBaseline="@+id/tvUsername"
+        android:layout_alignBottom="@+id/tvUsername"
+        android:layout_toEndOf="@+id/tvUsername" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/tvBody"
+        android:paddingTop="5dp"
+        android:paddingBottom="2dp"
+        android:background="@android:color/darker_gray"/>
+
 </RelativeLayout>

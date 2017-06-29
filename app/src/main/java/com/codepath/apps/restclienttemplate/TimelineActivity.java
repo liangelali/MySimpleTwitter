@@ -1,10 +1,13 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -19,6 +22,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE = 20;
     TwitterClient client;
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
@@ -31,7 +35,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient();
 
-        // find the ReycyclerView
+        // find the RecyclerView
         rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
 
         // init the arrayList (data source)
@@ -40,13 +44,25 @@ public class TimelineActivity extends AppCompatActivity {
         // construct the adapter from this data source
         tweetAdapter = new TweetAdapter(tweets);
 
-        // RecyclerView setup (layout manager, use adapater)
+        // RecyclerView setup (layout manager, use adapter)
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
 
         // set the adapter
         rvTweets.setAdapter(tweetAdapter);
 
         populateTimeline();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public void onComposeAction(View view) {
+        Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+        startActivityForResult(intent, 1);
     }
 
     private void populateTimeline() {
@@ -96,5 +112,4 @@ public class TimelineActivity extends AppCompatActivity {
                 throwable.printStackTrace();            }
         });
     }
-
 }

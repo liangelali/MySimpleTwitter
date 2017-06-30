@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -15,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,11 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String username = getIntent().getStringExtra("username");
+        String inReplyTo = getIntent().getStringExtra("in_reply_to");
+        int code = getIntent().getIntExtra("code", 0);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
@@ -52,6 +59,24 @@ public class TimelineActivity extends AppCompatActivity {
 
         populateTimeline();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // REQUEST_CODE is defined above
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+            tweets.add(0, tweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
+        }
+
+        // check request code and result code first
+
+        // Use data parameter
+        Tweet tweet = (Tweet) data.getSerializableExtra("tweet");
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,5 +136,17 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();            }
         });
+    }
+
+    public void onSubmit(View v) {
+        EditText et_simple = (EditText) findViewById(R.id.et_simple);
+        // Prepare data intent
+        Intent data = new Intent();
+        // Pass relevant data back as a result
+        data.putExtra("name", et_simple.getText().toString());
+        data.putExtra("code", 200); // ints work too
+        // Activity finished ok, return the data
+        setResult(RESULT_OK, data); // set result code and bundle data for response
+        finish(); // closes the activity, pass data to parent
     }
 }

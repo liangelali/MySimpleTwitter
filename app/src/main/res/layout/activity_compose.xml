@@ -8,8 +8,21 @@
 
     <EditText
         android:id="@+id/et_simple"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </EditText>
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"></EditText>
+
+    <Button
+        android:id="@+id/tweet_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/et_simple"
+        android:layout_below="@+id/et_simple"
+        android:backgroundTint="#09cefa"
+        android:text="tweet"
+        android:onClick="createTweet"
+        android:textColor="#ffffff"
+        android:textColorLink="#ffffff" />
 
 </RelativeLayout>

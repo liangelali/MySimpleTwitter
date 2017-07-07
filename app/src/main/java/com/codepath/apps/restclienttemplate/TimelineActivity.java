@@ -10,12 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.codepath.apps.restclienttemplate.fragments.HomeTimelineFragment;
+import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener{
 
     private static final int REQUEST_CODE = 20;
 
@@ -104,4 +105,10 @@ public class TimelineActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    @Override
+    public void onTweetSelected(Tweet tweet) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("screen_name", tweet.user.screenName);
+        startActivity(intent);
+    }
 }

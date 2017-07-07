@@ -25,15 +25,14 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-        TwitterClient client = getRestClient();
     }
 
     public void createTweet(View view) {
 
         TwitterClient client = getRestClient();
         EditText et_simple = (EditText) findViewById(R.id.et_simple);
-        Intent data = new Intent();
-        data.putExtra("tweet", et_simple.getText().toString());
+//        Intent data = new Intent();
+//        data.putExtra("tweet", et_simple.getText().toString());
         client.sendTweet(et_simple.getText().toString(), new JsonHttpResponseHandler() {
 
             @Override
@@ -51,9 +50,8 @@ public class ComposeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Intent data = new Intent(ComposeActivity.this, TimelineActivity.class);
-
                 Log.d("TwitterClient", response.toString());
+
             }
 
             @Override
